@@ -16,3 +16,15 @@ services:
         command: npm start
         stdin_open: true
         tty: true
+
+    cypress:
+        container_name: cypress
+        depends_on: 
+            - app
+        image: cypress/included:4.4.0
+        command: cypress run
+        volumes: 
+            - ./:/e2e
+        working_dir: /e2e
+        environment:
+            - CYPRESS_baseUrl=http://app:3000
