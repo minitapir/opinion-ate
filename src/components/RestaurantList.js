@@ -1,23 +1,29 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {loadRestaurants} from '../store/restaurants/actions';
+import { loadRestaurants } from '../store/restaurants/actions';
 
-export const RestaurantList = ({loadRestaurants, restaurants}) => {
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
+export const RestaurantList = ({ loadRestaurants, restaurants }) => {
 
     useEffect(() => {
         loadRestaurants();
-    },[loadRestaurants]);
+    }, [loadRestaurants]);
 
     return (
-        <ul>
-            { restaurants.map(restaurant => (
-                <li key={restaurant.id}>{ restaurant.name} </li>
+        <List>
+            {restaurants.map(restaurant => (
+                <ListItem key={restaurant.id}>
+                    <ListItemText>{restaurant.name}</ListItemText>
+                </ListItem>
             ))}
-        </ul>
+        </List>
     )
 }
 
-const mapDispatchToProps = {loadRestaurants};
+const mapDispatchToProps = { loadRestaurants };
 
 const mapStateToProps = state => ({
     restaurants: state.restaurants.records,
